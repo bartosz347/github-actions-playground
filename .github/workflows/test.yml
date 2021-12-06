@@ -1,0 +1,27 @@
+name: Test job failures
+
+on:
+  push:
+    branches:
+      - development
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout application
+        uses: actions/checkout@v2
+     
+     - name: Before failure
+       run: echo "before"
+       
+     - name: This will fail
+       run: exit 1
+ 
+     - name: This should execute
+       if: always()
+       run: echo "this should be seen"
+    
+     - name: This should not execute
+       run: echo "this should not be seen"
