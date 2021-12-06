@@ -19,7 +19,7 @@ jobs:
       - name: This will fail
         id: failing_step
         run: | 
-          exit 1
+          exit 0
 
       - name: This should execute if all success or if 'This will fail' fails
         if: success() || steps.failing_step.outcome == 'failure'
