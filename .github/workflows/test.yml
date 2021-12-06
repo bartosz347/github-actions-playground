@@ -22,7 +22,7 @@ jobs:
           exit 1
 
       - name: This should execute if all success or if 'This will fail' fails
-        if: ${{ success() || steps.failing_step.outcome == 'failure' }}
+        if: success() || steps.failing_step.outcome == 'failure'
         run: echo "this should be seen"
     
       - name: This should not execute
