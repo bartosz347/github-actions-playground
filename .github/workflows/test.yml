@@ -3,7 +3,7 @@ name: Test job failures
 on:
   push:
     branches:
-      - development
+      - main
 
 jobs:
   build:
