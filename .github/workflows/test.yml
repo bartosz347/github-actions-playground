@@ -15,11 +15,15 @@ jobs:
      
       - name: Before failure
         run: echo "before"
+        
+      - name: Other fail
+        run: | 
+          exit 1        
        
       - name: This will fail
         id: failing_step
         run: | 
-          exit 0
+          exit 1
 
       - name: This should execute if all success or if 'This will fail' fails
         if: success() || steps.failing_step.outcome == 'failure'
