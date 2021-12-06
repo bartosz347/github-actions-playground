@@ -17,10 +17,12 @@ jobs:
         run: echo "before"
        
       - name: This will fail
-        run: exit 1
- 
-      - name: This should execute
-        if: always()
+        run: | 
+          exit 1
+          echo ::set-output name=some_step_exit_code::$?
+
+      - name: This should execute if all success or if 'This will fail' fails
+        if: success() || steps.build.outputs.exit_code != 0
         run: echo "this should be seen"
     
       - name: This should not execute
