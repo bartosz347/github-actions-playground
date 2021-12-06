@@ -13,15 +13,15 @@ jobs:
       - name: Checkout application
         uses: actions/checkout@v2
      
-     - name: Before failure
-       run: echo "before"
+      - name: Before failure
+        run: echo "before"
        
-     - name: This will fail
-       run: exit 1
+      - name: This will fail
+        run: exit 1
  
-     - name: This should execute
-       if: always()
-       run: echo "this should be seen"
+      - name: This should execute
+        if: always()
+        run: echo "this should be seen"
     
-     - name: This should not execute
-       run: echo "this should not be seen"
+      - name: This should not execute
+        run: echo "this should not be seen"
