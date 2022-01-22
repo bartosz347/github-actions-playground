@@ -1,0 +1,29 @@
+name: Test commiting files
+
+on:
+  workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout application
+        uses: actions/checkout@v2
+     
+      - name: Create and commit a file
+      - run: |
+          mkdir -p tmp
+          date > tmp/generated.txt
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "generated"
+          git push
+
+      - name: This should execute if all success or if 'This will fail' fails
+        if: success() || steps.failing_step.outcome == 'failure'
+        run: echo "this should be seen"
+    
+      - name: This should not execute
+        run: echo "this should not be seen"
