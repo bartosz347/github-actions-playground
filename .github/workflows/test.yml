@@ -1,9 +1,7 @@
 name: Test job failures
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch
 
 jobs:
   build:
