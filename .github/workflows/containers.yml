@@ -1,9 +1,9 @@
-name: Test creating containers
+name: Containers demo
 on:
   workflow_dispatch
 
 jobs:
-  demo-container-port-mapping:
+  demo-using-cointainer-directly:
     runs-on: ubuntu-latest
         
     services:
@@ -24,12 +24,13 @@ jobs:
         env:
           POSTGRES_PASSWORD: postgres
 
-
     steps:
       - name: Test Postgres connection
-        run: nc -v 127.0.0.1 5432       
+        run: nc -v localhost 5432       
        
-  demo-container-job:
+       
+       
+  demo-using-cointainer-inside-docker-network:
     runs-on: ubuntu-latest
 
     # Docker Hub image that `demo-container-job` executes in
