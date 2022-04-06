@@ -1,0 +1,33 @@
+name: Simple workflow demo
+on:
+  push:
+    # Push to these branches will trigger this workflow
+    branches:    
+      - 'demo'
+    # It's possible to skip workflow run for changes in certain files  
+    paths-ignore:
+     - '**/*.md'
+     
+  pull_request:
+    # PRs targeting these branches will trigger this workflow
+    branches:    
+      - 'demo'    
+      
+jobs:
+  demo-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      
+      - name: Print all files
+        run: cat data/*.txt || true
+        
+      - name: Print node version
+        run: node -v
+        
