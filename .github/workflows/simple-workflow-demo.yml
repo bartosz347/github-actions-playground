@@ -3,6 +3,12 @@ on:
   push:
     branches:    
       - 'demo'
+    # This should work but does not ::(
+    paths-ignore:
+     - '**/*.md'
+  pull_request:
+    branches:    
+      - 'demo'    
       
 jobs:
   demo-job:
