@@ -16,5 +16,5 @@ jobs:
           - 5432:5432
     steps:
       - name: Test Postgres connection
-        run: echo nc -v localhost 5432       
+        run: nc -v localhost 5432       
        
