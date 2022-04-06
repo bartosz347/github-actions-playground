@@ -1,11 +1,11 @@
-name: simple-demo
+name: simple-demo-workflow
 on:
   push:
     branches:    
       - 'demo'
       
 jobs:
-  check-bats-version:
+  demo-job:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
