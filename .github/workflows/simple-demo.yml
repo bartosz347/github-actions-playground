@@ -1,4 +1,4 @@
-name: simple-demo-workflow
+name: Simple demo workflow
 on:
   push:
     branches:    
