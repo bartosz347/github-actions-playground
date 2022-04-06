@@ -1,0 +1,57 @@
+name: Containers demo
+on:
+  workflow_dispatch
+
+jobs:
+  demo-using-cointainer-directly:
+    runs-on: ubuntu-latest
+        
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres
+        ports:
+          # Opens tcp port 5432 on the host and service container
+          - 5432:5432
+          
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        env:
+          POSTGRES_PASSWORD: postgres
+
+    steps:
+      - name: Test Postgres connection
+        run: nc -v localhost 5432       
+       
+       
+       
+  demo-using-cointainer-inside-docker-network:
+    runs-on: ubuntu-latest
+
+    # Docker Hub image that `demo-container-job` executes in
+    container: subfuzion/netcat
+        
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres
+        
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        env:
+          POSTGRES_PASSWORD: postgres          
+
+    steps:
+      - name: Test Postgres connection
+        run: nc -v postgres 5432
+  
