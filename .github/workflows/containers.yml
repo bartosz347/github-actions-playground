@@ -1,4 +1,4 @@
-name: Test creating services
+name: Test creating containers
 on:
   workflow_dispatch
 
@@ -18,3 +18,19 @@ jobs:
       - name: Test Postgres connection
         run: nc -v localhost 5432       
        
+  demo-container-job:
+    runs-on: ubuntu-latest
+    
+    # Docker Hub image that `demo-container-job` executes in
+    container: ubuntu
+        
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres
+
+    steps:
+      - name: Test Postgres connection
+        run: nc -v postgres 5432
+  
