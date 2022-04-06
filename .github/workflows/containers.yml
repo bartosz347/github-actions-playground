@@ -21,6 +21,8 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+        env:
+          POSTGRES_PASSWORD: postgres
 
 
     steps:
@@ -45,6 +47,8 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+        env:
+          POSTGRES_PASSWORD: postgres          
 
     steps:
       - name: Test Postgres connection
