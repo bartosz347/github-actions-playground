@@ -3,6 +3,11 @@ on:
   push:
     branches:    
       - 'demo'
+  pull_request:
+    types:
+      - opened
+    branches:    
+      - 'demo'    
       
 jobs:
   demo-job:
