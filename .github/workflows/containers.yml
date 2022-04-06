@@ -16,13 +16,13 @@ jobs:
           - 5432:5432
     steps:
       - name: Test Postgres connection
-        run: nc -v localhost 5432       
+        run: nc -v 127.0.0.1 5432       
        
   demo-container-job:
     runs-on: ubuntu-latest
-    
+
     # Docker Hub image that `demo-container-job` executes in
-    container: ubuntu
+    container: subfuzion/netcat
         
     services:
       # Label used to access the service container
