@@ -1,0 +1,24 @@
+name: simple-demo
+on:
+  push:
+    branches:    
+      - 'demo'
+      
+jobs:
+  check-bats-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      
+      - name: Print all files
+        run: cat data/*.txt
+        
+      - name: Print node version
+        run: node -v
+        
