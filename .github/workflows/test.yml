@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v2
      
       - name: Before failure
-        run: echo "before"          
+        run: echo "before 123"          
        
       - name: This will fail
         id: failing_step
