@@ -1,0 +1,20 @@
+name: Test runner capabilities
+
+on:
+  workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Zip version
+        run: zip -v
+        
+      - name: Create dir and file
+        run: |
+          mkdir test_dir
+          touch test_dir/file1
+     
+      - name: Zip files
+        run: zip -q -r output.zip test_dir
