@@ -1,0 +1,25 @@
+name: Test pushing to branch
+
+on:
+  workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout application
+        uses: actions/checkout@v2
+        with:
+          # Use of standard GITHUB_TOKEN would prevent triggering "on push" workflow
+          # https://docs.github.com/en/actions/security-guides/automatic-token-authentication#using-the-github_token-in-a-workflow
+          token: ${{ secrets.REPO_RW_TOKEN }}
+
+      - name: Push to branch
+        run: |
+          git pull
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git checkout test
+          git reset --hard origin/dummy-branch
+          git push --force-with-lease
