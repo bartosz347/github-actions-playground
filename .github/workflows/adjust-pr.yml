@@ -2,8 +2,8 @@ name: Adjust PRs
 on:
   pull_request:
     types: [ opened, synchronized, unlocked ]
-#     branches:
-#       - 'branch-prefix/**'
+    branches:
+      - 'branch-prefix/*'
 
 permissions:
   pull-requests: write
