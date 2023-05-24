@@ -1,0 +1,29 @@
+name: Adjust PRs
+on:
+  pull_request:
+    types: [ opened ]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  dependabot:
+    runs-on: ubuntu-latest
+    # if: ${{ github.actor == 'dependabot[bot]' && github.event.pull_request.base.ref == 'master' }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build message
+        id: message
+        run: echo value="[PREFIX] $(git -P log --format=%B -n 1 HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Change base branch to development
+        run: gh pr edit -t "${{ steps.message.outputs.value }}" -B development "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      - name: Adjust commit message
+        run: |
+          git commit --amend -m "${{ steps.message.outputs.value }}"
+          git push --force-with-lease
