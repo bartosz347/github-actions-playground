@@ -1,7 +1,7 @@
 name: Adjust PRs
 on:
   pull_request:
-    types: [ opened ]
+    types: [ opened, synchronized, unlocked ]
 
 permissions:
   pull-requests: write
