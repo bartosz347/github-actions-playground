@@ -14,13 +14,10 @@ jobs:
     if: ${{ github.actor == 'bartosz347' && github.event.pull_request.base.ref == 'main' && startsWith(github.head_ref, 'foo/') }}
     steps:
       - uses: actions/checkout@v3
-      
-      - name: Build message
-        run: git log      
-
+        
       - name: Build message
         id: message
-        run: echo value="[PREFIX] $(git -P log --format=%B -n 1 HEAD)" >> $GITHUB_OUTPUT
+        run: echo value="[PREFIX] ${{ github.event.head_commit.message }}" >> $GITHUB_OUTPUT
 
       - name: Adjust PR
         run: gh pr edit -t "${{ steps.message.outputs.value }}" -B demo "$PR_URL"
