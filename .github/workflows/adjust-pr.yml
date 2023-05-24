@@ -1,9 +1,9 @@
-name: Adjust PRs
+name: Adjust Dependabot PR
 on:
   pull_request:
-    types: [ opened, synchronized, unlocked ]
+    types: [ opened, reopened ]
     branches:
-      - 'branch-prefix/*'
+      - 'main'
 
 permissions:
   pull-requests: write
@@ -11,7 +11,7 @@ permissions:
 jobs:
   dependabot:
     runs-on: ubuntu-latest
-    if: ${{ (github.actor == 'dependabot[bot]' || github.actor == 'bartosz347') && github.event.pull_request.base.ref == 'main' }}
+    if: ${{ github.actor == 'bartosz347' && github.event.pull_request.base.ref == 'main' && startsWith(github.head_ref, 'foo/') }}
     steps:
       - uses: actions/checkout@v3
 
@@ -19,8 +19,8 @@ jobs:
         id: message
         run: echo value="[PREFIX] $(git -P log --format=%B -n 1 HEAD)" >> $GITHUB_OUTPUT
 
-      - name: Change base branch to development
-        run: gh pr edit -t "${{ steps.message.outputs.value }}" -B development "$PR_URL"
+      - name: Adjust PR
+        run: gh pr edit -t "${{ steps.message.outputs.value }}" -B demo "$PR_URL"
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
