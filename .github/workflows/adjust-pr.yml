@@ -14,6 +14,12 @@ jobs:
     if: ${{ github.actor == 'bartosz347' && github.event.pull_request.base.ref == 'main' && startsWith(github.head_ref, 'foo/') }}
     steps:
       - uses: actions/checkout@v3
+      
+      - name: Output
+        run: |
+          echo ${{ github.event.commits[0].message }}
+          echo ${{ github.event.commits[1].message }}
+          echo ${{ github.event.commits[2].message }}
         
       - name: Build message
         id: message
