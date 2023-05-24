@@ -1,7 +1,7 @@
 name: Adjust Dependabot PR
 on:
   pull_request:
-    types: [ opened, reopened ]
+    types: [ opened, reopened, unlocked ]
     branches:
       - 'main'
 
@@ -14,6 +14,9 @@ jobs:
     if: ${{ github.actor == 'bartosz347' && github.event.pull_request.base.ref == 'main' && startsWith(github.head_ref, 'foo/') }}
     steps:
       - uses: actions/checkout@v3
+      
+      - name: Build message
+        run: git log      
 
       - name: Build message
         id: message
