@@ -1,0 +1,26 @@
+name: Adjust PR
+on:
+  pull_request:
+    types: [ opened, reopened, unlocked ]
+    branches: [ 'main' ]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    if: ${{ github.actor == 'bartosz347' && github.event.pull_request.base.ref == 'main' && startsWith(github.head_ref, 'foo/') }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build message
+        id: message
+        run: echo value="[PREFIX] ${{ github.event.pull_request.title }}" >> $GITHUB_OUTPUT
+
+      - name: Adjust PR
+        run: gh pr edit -t "${{ steps.message.outputs.value }}" -B demo "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
