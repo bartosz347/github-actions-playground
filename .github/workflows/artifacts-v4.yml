@@ -21,4 +21,4 @@ jobs:
           path: ./data/*
 
       - name: Print link to file
-        run: echo "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ steps.artifact-upload.outputs.artifact-id }}'"
+        run: echo "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ steps.artifact-upload.outputs.artifact-id }}"
