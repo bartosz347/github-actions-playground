@@ -1,0 +1,21 @@
+name: Workflow that calls a reusable workflow
+on:
+  workflow_dispatch:   
+      
+jobs:
+  job-1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        
+      - name: Echo hello
+        run: echo Hello       
+      
+      - name: Call reusable workflow
+        uses: bartosz347/github-actions-playground/new/main/.github/workflows/reusable-workflow.yml@main
+        with:
+          caller-name: "GitHub actor"
+      
+      - name: Echo finished
+        run: echo Finished  
