@@ -12,6 +12,12 @@ on:
     # PRs targeting these branches will trigger this workflow
     branches:    
       - 'demo'    
+  workflow_dispatch:    
+
+env:
+  DEMO_ENV: "Value of demo env"
+  
+      
       
 jobs:
   demo-job:
@@ -31,3 +37,7 @@ jobs:
       - name: Print node version
         run: node -v
         
+      - name: Print value
+        run: echo $VALUE
+        env:
+          VALUE: DEMO_ENV variable is ${{ env.DEMO_ENV }}"
