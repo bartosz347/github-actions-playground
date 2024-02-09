@@ -1,0 +1,38 @@
+name: Sample reusable workflow
+on:
+  workflow_call:
+    inputs:
+      caller-name:
+        required: true
+        type: string   
+
+env:
+  CALLER_NAME: ${{ inputs.caller-name }}
+    
+jobs:
+  first-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      
+      - name: Hello input
+        run: echo ${{ inputs.caller-name }}
+
+      - name: Hello ENV
+        run: echo $CALLER_NAME
+
+      - name: Print all files
+        run: cat data/*.txt || true
+
+  second-job:
+    runs-on: ubuntu-latest
+    steps:     
+      - name: Hello input
+        run: echo ${{ inputs.caller-name }}
+
+      - name: Hello 1
+        run: echo Hello from step 1
+
+      - name: Hello 2
+        run: echo Hello from step 2
