@@ -1,0 +1,15 @@
+name: Test error messages
+
+on:
+  workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Validate user permissions
+        if: !contains(fromJSON(secrets.ALLOWED_USERS), github.actor)
+        run: |
+          echo "::error title=Error::You are not allowed to run this workflow"
+          exit 1
