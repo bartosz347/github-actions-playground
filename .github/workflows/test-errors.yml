@@ -9,7 +9,7 @@ jobs:
 
     steps:
       - name: Validate user permissions
-        if: ${{ contains(fromJSON(vars.ALLOWED_USERS), github.actor) }}
+        if: ${{ !contains(fromJSON(vars.ALLOWED_USERS), github.actor) }}
         run: |
           echo "::error title=Error::You are not allowed to run this workflow"
           exit 1
